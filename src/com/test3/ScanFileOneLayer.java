@@ -1,4 +1,4 @@
-package com.test1;
+package com.test3;
 
 import static com.util.Output.println;
 
@@ -8,21 +8,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class ScanFile {
+public class ScanFileOneLayer {
 
     public static void main(String[] args) {
         Path targetPath = Paths.get("D:", "mydir");
-        Stream<Path> fileStream = null;
+        Stream<Path> stream = null;
         try {
-            // 走訪整個資料夾.
-            fileStream = Files.walk(targetPath);
-            fileStream.forEach((Path path) -> println(path));
+            // 只能掃一層資料夾.
+            stream = Files.list(targetPath);
+            stream.forEach((Path path) -> println(path));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (fileStream != null) {
-                fileStream.close();
-                fileStream = null;
+            if (stream != null) {
+                stream.close();
+                stream = null;
             }
         }
     }
